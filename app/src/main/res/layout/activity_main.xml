@@ -29,8 +29,6 @@
         android:layout_marginTop="208dp"
         android:text="Seniors Helping Seniors" />
 
-    test test
-
     <EditText
         android:id="@+id/editTextTextPersonName"
         android:layout_width="200dp"
