@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -77,6 +78,14 @@ public class MainActivity extends AppCompatActivity{
                 Uri personPhoto = acct.getPhotoUrl();
 
                 Toast.makeText(this, "Email: " + personEmail, Toast.LENGTH_SHORT).show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run()
+                    {
+                        Intent mainIntent = new Intent(MainActivity.this, HelpScreen.class);
+                        startActivity(mainIntent);
+                    }
+                }, 500);
             }
 
             // Signed in successfully, show authenticated UI.
