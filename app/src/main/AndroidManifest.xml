@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SeniorsHelpingSeniors">
         <activity
+            android:name=".SettingsScreen"
+            android:exported="true" />
+        <activity
+            android:name=".ProfileScreen"
+            android:exported="true" />
+        <activity
             android:name=".HelpScreen"
             android:exported="true" />
         <activity
