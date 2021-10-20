@@ -7,13 +7,12 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class SettingsScreen extends AppCompatActivity {
+public class HelpNow extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings_screen);
-
+        setContentView(R.layout.activity_help_now);
         //Go to Request Help Screen
         ImageView requesthelp = (ImageView) findViewById(R.id.requesthelp);
         requesthelp.setOnClickListener(new View.OnClickListener() {
