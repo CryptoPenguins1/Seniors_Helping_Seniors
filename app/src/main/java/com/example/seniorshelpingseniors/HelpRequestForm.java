@@ -1,19 +1,34 @@
 package com.example.seniorshelpingseniors;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class HelpScreen extends AppCompatActivity {
+import java.util.Calendar;
+
+public class HelpRequestForm extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+
+    private TextView dateDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_help_screen);
+        setContentView(R.layout.activity_help_request_form);
+        dateDisplay = findViewById(R.id.fielddate);
+
+        findViewById(R.id.fieldselectdate).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDatePickerDialog();
+            }
+        });
+
 
         //Go to Request Help Screen
         ImageView requesthelp = (ImageView) findViewById(R.id.requesthelp);
@@ -47,22 +62,19 @@ public class HelpScreen extends AppCompatActivity {
                 openSettings();
             }
         });
-        //Open Help Request Form
-        Button helpRequest = (Button) findViewById(R.id.helpRequestButton);
-        helpRequest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openHelpRequestForm();
-            }
-        });
-
     }
 
-    //Help Request Form Function
-    public void openHelpRequestForm() {
-        Intent intent = new Intent(this, HelpRequestForm.class);
-        startActivity(intent);
+    private void showDatePickerDialog() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this,
+                this,
+                Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+        );
+        datePickerDialog.show();
     }
+
     //Request Help Screen Function
     public void openRequestHelp() {
         Intent intent = new Intent(this, HelpScreen.class);
@@ -82,5 +94,12 @@ public class HelpScreen extends AppCompatActivity {
     public void openSettings() {
         Intent intent = new Intent(this, SettingsScreen.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        month = month + 1;
+        String date = month + "/" + dayOfMonth + "/" + year;
+        dateDisplay.setText(date);
     }
 }
