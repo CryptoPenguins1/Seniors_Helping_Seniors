@@ -221,14 +221,13 @@
         android:layout_width="367dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginBottom="263dp"
         android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="20dp" />
+        android:gravity="start|top" />
 
     <TextView
         android:id="@+id/datedisplay"
@@ -279,19 +278,6 @@
         android:layout_marginBottom="188dp"
         android:text="Time" />
 
-    <EditText
-        android:id="@+id/editTextTime"
-        android:layout_width="109dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="144dp"
-        android:ems="10"
-        android:inputType="time" />
-
     <Button
         android:id="@+id/buttonsubmit"
         android:layout_width="wrap_content"
@@ -303,5 +289,30 @@
         android:layout_marginRight="57dp"
         android:layout_marginBottom="134dp"
         android:text="Submit" />
+
+    <Button
+        android:id="@+id/buttontime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="119dp"
+        android:layout_marginLeft="119dp"
+        android:layout_marginBottom="135dp"
+        android:onClick="selectTime"
+        android:text="Select Time" />
+
+    <TextView
+        android:id="@+id/displaytime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="152dp"
+        android:textSize="16sp" />
 
 </RelativeLayout>
