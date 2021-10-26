@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -27,7 +28,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class HelpNow extends AppCompatActivity {
+public class HelpNow extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     ListView listView;
     ListAdapter adapter;
@@ -38,9 +39,11 @@ public class HelpNow extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help_now);
 
+
         listView = (ListView) findViewById(R.id.lv_items);
         getItems();
 
+        listView.setOnItemClickListener(this);
         //Go to Request Help Screen
         ImageView requesthelp = (ImageView) findViewById(R.id.requesthelp);
         requesthelp.setOnClickListener(new View.OnClickListener() {
@@ -116,12 +119,15 @@ public class HelpNow extends AppCompatActivity {
             for (int i = 0; i < jarray.length(); i++) {
 
                 JSONObject jo = jarray.getJSONObject(i);
-
+                //Add values
+                //
                 String itemName = jo.getString("itemName");
                 String brand = jo.getString("brand");
 
 
                 HashMap<String, String> item = new HashMap<>();
+                //Add Values
+                //
                 item.put("itemName", itemName);
                 item.put("brand", brand);
 
@@ -134,12 +140,27 @@ public class HelpNow extends AppCompatActivity {
         }
 
 
+        //Add values
+        //
         adapter = new SimpleAdapter(this,list,R.layout.activity_help_now_list,
-                new String[]{"itemName","brand"},new int[]{R.id.tv_item_name,R.id.tv_brand});
+                new String[]{"itemName","brand","itemId"},new int[]{R.id.tv_item_name,R.id.tv_brand});
 
 
         listView.setAdapter(adapter);
         loading.dismiss();
+    }
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(this, HelpNowListDetails.class);
+        HashMap<String,String> map =(HashMap)parent.getItemAtPosition(position);
+        //Add values
+        //
+        String itemName = map.get("itemName").toString();
+        String brand = map.get("brand").toString();
+        intent.putExtra("itemName",itemName);
+        intent.putExtra("brand",brand);
+
+
+        startActivity(intent);
     }
 
     //Request Help Screen Function
@@ -161,5 +182,10 @@ public class HelpNow extends AppCompatActivity {
     public void openSettings() {
         Intent intent = new Intent(this, SettingsScreen.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }

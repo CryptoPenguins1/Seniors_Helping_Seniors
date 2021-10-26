@@ -296,7 +296,7 @@ public class HelpRequestForm extends AppCompatActivity implements DatePickerDial
             }
         };
 
-        int socketTimeOut = 5000;// u can change this .. here it is 50 seconds
+        int socketTimeOut = 5000;
 
         RetryPolicy retryPolicy = new DefaultRetryPolicy(socketTimeOut, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         stringRequest.setRetryPolicy(retryPolicy);
