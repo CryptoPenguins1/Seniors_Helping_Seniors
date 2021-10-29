@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,10 +25,9 @@ import java.util.Map;
 
 public class HelpNowListDetails extends AppCompatActivity {
 
-    TextView textViewitemName, textViewbrand;
-    Button markAsComplete, buttonUpdateItem, buttonDeleteItem;
-    String itemName, brand;
-    ListAdapter adapter;
+    TextView textUserName, textEmail, textUserAddress, textUserPhone, textJobTitle, textJobDescription, textJobDate, textJobTime;
+    Button markAsComplete;
+    String userName, emailAddress, userAddress, userPhone, jobTitle, jobDescription, jobDate, jobTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,30 +36,80 @@ public class HelpNowListDetails extends AppCompatActivity {
         markAsComplete = findViewById(R.id.markascomplete);
 
         Intent intent = getIntent();
-        itemName = intent.getStringExtra("itemName");
-        brand = intent.getStringExtra("brand");
+        userName = intent.getStringExtra("userName");
+        emailAddress = intent.getStringExtra("emailAddress");
+        userAddress = intent.getStringExtra("userAddress");
+        userPhone = intent.getStringExtra("userPhone");
+        jobTitle = intent.getStringExtra("jobTitle");
+        jobDescription = intent.getStringExtra("jobDescription");
+        jobDate = intent.getStringExtra("jobDate").replace("@", "");
+        jobTime = intent.getStringExtra("jobTime").replace("@", "");
 
-        textViewitemName = (TextView) findViewById(R.id.tv_item_name);
-        textViewbrand = (TextView) findViewById(R.id.tv_brand);
+        textUserName = (TextView) findViewById(R.id.fieldusername);
+        textEmail = (TextView) findViewById(R.id.fieldemail);
+        textUserAddress = (TextView) findViewById(R.id.fielduseraddress);
+        textUserPhone = (TextView) findViewById(R.id.fielduserphone);
+        textJobTitle = (TextView) findViewById(R.id.fieldjobtitle);
+        textJobDescription = (TextView) findViewById(R.id.fieldjobdescription);
+        textJobDate = (TextView) findViewById(R.id.fieldjobdate);
+        textJobTime = (TextView) findViewById(R.id.fieldjobtime);
 
-        textViewitemName.setText(itemName);
-        textViewbrand.setText(brand);
+        textUserName.setText(userName);
+        textEmail.setText(emailAddress);
+        textUserAddress.setText(userAddress);
+        textUserPhone.setText(userPhone);
+        textJobTitle.setText(jobTitle);
+        textJobDescription.setText(jobDescription);
+        textJobDate.setText(jobDate);
+        textJobTime.setText(jobTime);
 
+        //Run Mark as Complete to Delete Data from Spreadsheet
         markAsComplete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 deleteItems();
             }
         });
+        //Go to Request Help Screen
+        ImageView requesthelp = (ImageView) findViewById(R.id.requesthelp);
+        requesthelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openRequestHelp();
+            }
+        });
+        //Go to Help Now Screen
+        ImageView offerhelp = (ImageView) findViewById(R.id.offerhelp);
+        offerhelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openOfferHelp();
+            }
+        });
+        //Go to Profile Screen
+        ImageView profile = (ImageView) findViewById(R.id.profile);
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openProfile();
+            }
+        });
+        //Go to Settings Screen
+        ImageView settings = (ImageView) findViewById(R.id.settings);
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSettings();
+            }
+        });
     }
 
-    //Copy Data
-
+    //Delete from Spreadsheet Function
     private void deleteItems() {
 
         Intent intent = getIntent();
-        final ProgressDialog loading = ProgressDialog.show(this,"Removing","Please wait");
-        itemName = intent.getStringExtra("itemName");
+        final ProgressDialog loading = ProgressDialog.show(this,"Marking Job As Complete","Please wait");
+        userName = intent.getStringExtra("userName");
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://script.google.com/macros/s/AKfycbwJZqqvpdFKoEKQXGeKgz2oSWfyWnsI17y7A4D3W55aS_MedtjS/exec",
                 new Response.Listener<String>() {
@@ -77,7 +126,6 @@ public class HelpNowListDetails extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
                     }
                 }
         ) {
@@ -87,22 +135,37 @@ public class HelpNowListDetails extends AppCompatActivity {
 
                 //here we pass params
                 parmas.put("action","deleteItems");
-                parmas.put("itemName",itemName);
+                parmas.put("userName",userName);
 
                 return parmas;
             }
         };
-
         int socketTimeOut = 5000;
-
         RetryPolicy retryPolicy = new DefaultRetryPolicy(socketTimeOut, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         stringRequest.setRetryPolicy(retryPolicy);
-
         RequestQueue queue = Volley.newRequestQueue(this);
-
         queue.add(stringRequest);
+    }
 
-
+    //Request Help Screen Function
+    public void openRequestHelp() {
+        Intent intent = new Intent(this, HelpScreen.class);
+        startActivity(intent);
+    }
+    //Offer Help Screen Function
+    public void openOfferHelp() {
+        Intent intent = new Intent(this, HelpNow.class);
+        startActivity(intent);
+    }
+    //Profile Screen Function
+    public void openProfile() {
+        Intent intent = new Intent(this, ProfileScreen.class);
+        startActivity(intent);
+    }
+    //Settings Screen Function
+    public void openSettings() {
+        Intent intent = new Intent(this, SettingsScreen.class);
+        startActivity(intent);
     }
 
 

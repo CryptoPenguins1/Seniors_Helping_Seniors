@@ -56,6 +56,9 @@ public class HelpRequestForm extends AppCompatActivity implements DatePickerDial
     TextView timeDisplay;
     TextView displayName;
     TextView addressLocation;
+    TextView titleDisplay;
+    TextView descriptionDisplay;
+    TextView phoneDisplay;
     int hour, minute;
     GoogleSignInClient mGoogleSignInClient;
     FusedLocationProviderClient fusedLocationProviderClient;
@@ -67,9 +70,13 @@ public class HelpRequestForm extends AppCompatActivity implements DatePickerDial
         dateDisplay = findViewById(R.id.fielddate);
         timeButton = findViewById(R.id.buttontime);
         timeDisplay = findViewById(R.id.timedisplay);
+        titleDisplay = findViewById(R.id.fieldtitle);
+        descriptionDisplay = findViewById(R.id.fielddescription);
+        dateDisplay = findViewById(R.id.fielddate);
+        phoneDisplay = findViewById(R.id.fieldphone);
 
         //Get Address info
-        addressLocation = findViewById(R.id.fieldaddress);
+        addressLocation = findViewById(R.id.fielduseraddress);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         if (ActivityCompat.checkSelfPermission(HelpRequestForm.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             getLocation();
@@ -107,6 +114,7 @@ public class HelpRequestForm extends AppCompatActivity implements DatePickerDial
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Run Checks as well
                 addItemToSheet();
             }
         });
@@ -191,7 +199,7 @@ public class HelpRequestForm extends AppCompatActivity implements DatePickerDial
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                 String amPm = "AM";
-                int hourString = selectedHour;
+                String hourString;
                 String minuteString;
 
                 if (selectedHour > 12) {
@@ -214,8 +222,8 @@ public class HelpRequestForm extends AppCompatActivity implements DatePickerDial
                 hour = selectedHour;
                 minute = selectedMinute;
 
-                hourString = selectedHour;
-                String timeString = new StringBuilder().append(hourString).append(':').append(minuteString).append(" ").append(amPm).toString();
+                hourString = String.valueOf(selectedHour);
+                String timeString = new StringBuilder().append(hourString).append(":").append(minuteString).append(" ").append(amPm).toString();
                 timeDisplay.setText(timeString);
             }
         };
@@ -245,7 +253,7 @@ public class HelpRequestForm extends AppCompatActivity implements DatePickerDial
     }
 
 
-    private void   addItemToSheet() {
+    private void addItemToSheet() {
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
@@ -258,28 +266,28 @@ public class HelpRequestForm extends AppCompatActivity implements DatePickerDial
         }
 
         final ProgressDialog loading = ProgressDialog.show(this,"Adding Item","Please wait");
-        final String name = displayName.getText().toString().trim();
+        final String userName = displayName.getText().toString().trim();
         final String emailAddress = acct.getEmail();
-
-
-
+        final String userAddress = addressLocation.getText().toString();
+        final String userPhone = phoneDisplay.getText().toString();
+        final String jobTitle = titleDisplay.getText().toString();
+        final String jobDescription = descriptionDisplay.getText().toString();
+        final String jobDate = "@" + dateDisplay.getText().toString();
+        final String jobTime = "@" + timeDisplay.getText().toString();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://script.google.com/macros/s/AKfycbwJZqqvpdFKoEKQXGeKgz2oSWfyWnsI17y7A4D3W55aS_MedtjS/exec",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
                         loading.dismiss();
                         Toast.makeText(HelpRequestForm.this,"Help Request Has Been Submitted",Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getApplicationContext(),HelpScreen.class);
                         startActivity(intent);
-
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
                     }
                 }
         ) {
@@ -287,24 +295,24 @@ public class HelpRequestForm extends AppCompatActivity implements DatePickerDial
             protected Map<String, String> getParams() {
                 Map<String, String> parmas = new HashMap<>();
 
-                //here we pass params
+                //Assigns Parameters for Javascript Backend and Passing in Variables for each Parameter
                 parmas.put("action","addItem");
-                parmas.put("itemName",name);
-                parmas.put("brand",emailAddress);
+                parmas.put("userName",userName);
+                parmas.put("emailAddress",emailAddress);
+                parmas.put("userAddress",userAddress);
+                parmas.put("userPhone",userPhone);
+                parmas.put("jobTitle",jobTitle);
+                parmas.put("jobDescription",jobDescription);
+                parmas.put("jobDate",jobDate);
+                parmas.put("jobTime",jobTime);
 
                 return parmas;
             }
         };
-
         int socketTimeOut = 5000;
-
         RetryPolicy retryPolicy = new DefaultRetryPolicy(socketTimeOut, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         stringRequest.setRetryPolicy(retryPolicy);
-
         RequestQueue queue = Volley.newRequestQueue(this);
-
         queue.add(stringRequest);
-
-
     }
 }

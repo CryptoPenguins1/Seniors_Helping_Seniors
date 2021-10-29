@@ -39,10 +39,9 @@ public class HelpNow extends AppCompatActivity implements AdapterView.OnItemClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help_now);
 
-
+        //Initalize ListView and start process for getting items so it loads immediately.
         listView = (ListView) findViewById(R.id.lv_items);
         getItems();
-
         listView.setOnItemClickListener(this);
         //Go to Request Help Screen
         ImageView requesthelp = (ImageView) findViewById(R.id.requesthelp);
@@ -79,9 +78,7 @@ public class HelpNow extends AppCompatActivity implements AdapterView.OnItemClic
     }
 
     private void getItems() {
-
-        loading =  ProgressDialog.show(this,"Loading","please wait",false,true);
-
+        loading =  ProgressDialog.show(this,"Loading","Please Wait, Fetching all Open Jobs",false,true);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://script.google.com/macros/s/AKfycbwJZqqvpdFKoEKQXGeKgz2oSWfyWnsI17y7A4D3W55aS_MedtjS/exec?action=getItems",
                 new Response.Listener<String>() {
                     @Override
@@ -89,76 +86,90 @@ public class HelpNow extends AppCompatActivity implements AdapterView.OnItemClic
                         parseItems(response);
                     }
                 },
-
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
                     }
                 }
         );
-
         int socketTimeOut = 50000;
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeOut, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-
         stringRequest.setRetryPolicy(policy);
-
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(stringRequest);
-
     }
-    private void parseItems(String jsonResposnce) {
+    private void parseItems(String jsonResponse) {
 
+        //SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        //SimpleDateFormat outputFormat = new SimpleDateFormat("MM/dd/yyyy");
+        //Date date = inputFormat.parse(jobDate);
+        //String formattedDate = outputFormat.format(date);
         ArrayList<HashMap<String, String>> list = new ArrayList<>();
 
         try {
-            JSONObject jobj = new JSONObject(jsonResposnce);
+            JSONObject jobj = new JSONObject(jsonResponse);
             JSONArray jarray = jobj.getJSONArray("items");
-
 
             for (int i = 0; i < jarray.length(); i++) {
 
+
                 JSONObject jo = jarray.getJSONObject(i);
-                //Add values
-                //
-                String itemName = jo.getString("itemName");
-                String brand = jo.getString("brand");
+
+                String userName = jo.getString("userName");
+                String emailAddress = jo.getString("emailAddress");
+                String userAddress = jo.getString("userAddress");
+                String userPhone = jo.getString("userPhone");
+                String jobTitle = jo.getString("jobTitle");
+                String jobDescription = jo.getString("jobDescription");
+                String jobDate = jo.getString("jobDate").replace("@", "");
+                String jobTime = jo.getString("jobTime").replace("@", "");
 
 
                 HashMap<String, String> item = new HashMap<>();
-                //Add Values
-                //
-                item.put("itemName", itemName);
-                item.put("brand", brand);
+                item.put("userName", userName);
+                item.put("emailAddress", emailAddress);
+                item.put("userAddress", userAddress);
+                item.put("userPhone", userPhone);
+                item.put("jobTitle", jobTitle);
+                item.put("jobDescription", jobDescription);
+                item.put("jobDate", jobDate);
+                item.put("jobTime", jobTime);
 
                 list.add(item);
-
-
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
 
-        //Add values
-        //
+
+
+
         adapter = new SimpleAdapter(this,list,R.layout.activity_help_now_list,
-                new String[]{"itemName","brand","itemId"},new int[]{R.id.tv_item_name,R.id.tv_brand});
-
-
+                new String[]{"userName", "emailAddress", "userAddress", "userPhone", "jobTitle", "jobDescription", "jobDate", "jobTime"},new int[]{R.id.fieldusername,R.id.fieldemail,R.id.fielduseraddress,R.id.fielduserphone,R.id.fieldjobtitle,R.id.fieldjobdescription,R.id.fielddate,R.id.fieldjobtime});
         listView.setAdapter(adapter);
         loading.dismiss();
     }
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this, HelpNowListDetails.class);
         HashMap<String,String> map =(HashMap)parent.getItemAtPosition(position);
-        //Add values
-        //
-        String itemName = map.get("itemName").toString();
-        String brand = map.get("brand").toString();
-        intent.putExtra("itemName",itemName);
-        intent.putExtra("brand",brand);
 
+        String userName = map.get("userName").toString();
+        String emailAddress = map.get("emailAddress").toString();
+        String userAddress = map.get("userAddress").toString();
+        String userPhone = map.get("userPhone").toString();
+        String jobTitle = map.get("jobTitle").toString();
+        String jobDescription = map.get("jobDescription").toString();
+        String jobDate = map.get("jobDate");
+        String jobTime = map.get("jobTime");
+        intent.putExtra("userName",userName);
+        intent.putExtra("emailAddress",emailAddress);
+        intent.putExtra("userAddress",userAddress);
+        intent.putExtra("userPhone",userPhone);
+        intent.putExtra("jobTitle",jobTitle);
+        intent.putExtra("jobDescription",jobDescription);
+        intent.putExtra("jobDate",jobDate);
+        intent.putExtra("jobTime",jobTime);
 
         startActivity(intent);
     }
@@ -183,7 +194,7 @@ public class HelpNow extends AppCompatActivity implements AdapterView.OnItemClic
         Intent intent = new Intent(this, SettingsScreen.class);
         startActivity(intent);
     }
-
+    //Pointer Capture Override
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 

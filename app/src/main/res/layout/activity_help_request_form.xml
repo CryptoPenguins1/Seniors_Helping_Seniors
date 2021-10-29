@@ -118,7 +118,7 @@
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/fieldaddress"
+        android:id="@+id/fielduseraddress"
         android:layout_width="367dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
