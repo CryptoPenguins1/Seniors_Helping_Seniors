@@ -2,6 +2,7 @@ package com.example.seniorshelpingseniors;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -26,7 +27,7 @@ import java.util.Map;
 public class HelpNowListDetails extends AppCompatActivity {
 
     TextView textUserName, textEmail, textUserAddress, textUserPhone, textJobTitle, textJobDescription, textJobDate, textJobTime;
-    Button markAsComplete;
+    Button markAsComplete, getDirections;
     String userName, emailAddress, userAddress, userPhone, jobTitle, jobDescription, jobDate, jobTime;
 
     @Override
@@ -34,6 +35,7 @@ public class HelpNowListDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help_now_list_details);
         markAsComplete = findViewById(R.id.markascomplete);
+        getDirections = findViewById(R.id.getdirections);
 
         Intent intent = getIntent();
         userName = intent.getStringExtra("userName");
@@ -63,6 +65,13 @@ public class HelpNowListDetails extends AppCompatActivity {
         textJobDate.setText(jobDate);
         textJobTime.setText(jobTime);
 
+        //Get Directions
+        getDirections.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openMapsApp();
+            }
+        });
         //Run Mark as Complete to Delete Data from Spreadsheet
         markAsComplete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +144,7 @@ public class HelpNowListDetails extends AppCompatActivity {
 
                 //here we pass params
                 parmas.put("action","deleteItems");
-                parmas.put("userName",userName);
+                parmas.put("jobDescription",jobDescription);
 
                 return parmas;
             }
@@ -147,6 +156,13 @@ public class HelpNowListDetails extends AppCompatActivity {
         queue.add(stringRequest);
     }
 
+    //Open Maps
+    public void openMapsApp() {
+        Uri mapUri = Uri.parse("geo:0,0?q=" + Uri.encode(userAddress));
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, mapUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        startActivity(mapIntent);
+    }
     //Request Help Screen Function
     public void openRequestHelp() {
         Intent intent = new Intent(this, HelpScreen.class);

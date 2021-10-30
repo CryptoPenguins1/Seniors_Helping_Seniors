@@ -100,10 +100,6 @@ public class HelpNow extends AppCompatActivity implements AdapterView.OnItemClic
     }
     private void parseItems(String jsonResponse) {
 
-        //SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        //SimpleDateFormat outputFormat = new SimpleDateFormat("MM/dd/yyyy");
-        //Date date = inputFormat.parse(jobDate);
-        //String formattedDate = outputFormat.format(date);
         ArrayList<HashMap<String, String>> list = new ArrayList<>();
 
         try {
@@ -111,8 +107,6 @@ public class HelpNow extends AppCompatActivity implements AdapterView.OnItemClic
             JSONArray jarray = jobj.getJSONArray("items");
 
             for (int i = 0; i < jarray.length(); i++) {
-
-
                 JSONObject jo = jarray.getJSONObject(i);
 
                 String userName = jo.getString("userName");
@@ -123,7 +117,6 @@ public class HelpNow extends AppCompatActivity implements AdapterView.OnItemClic
                 String jobDescription = jo.getString("jobDescription");
                 String jobDate = jo.getString("jobDate").replace("@", "");
                 String jobTime = jo.getString("jobTime").replace("@", "");
-
 
                 HashMap<String, String> item = new HashMap<>();
                 item.put("userName", userName);
@@ -140,11 +133,6 @@ public class HelpNow extends AppCompatActivity implements AdapterView.OnItemClic
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-
-
-
         adapter = new SimpleAdapter(this,list,R.layout.activity_help_now_list,
                 new String[]{"userName", "emailAddress", "userAddress", "userPhone", "jobTitle", "jobDescription", "jobDate", "jobTime"},new int[]{R.id.fieldusername,R.id.fieldemail,R.id.fielduseraddress,R.id.fielduserphone,R.id.fieldjobtitle,R.id.fieldjobdescription,R.id.fielddate,R.id.fieldjobtime});
         listView.setAdapter(adapter);

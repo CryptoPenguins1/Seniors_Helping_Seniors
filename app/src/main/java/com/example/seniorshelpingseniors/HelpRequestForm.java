@@ -14,6 +14,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -69,7 +70,7 @@ public class HelpRequestForm extends AppCompatActivity implements DatePickerDial
         setContentView(R.layout.activity_help_request_form);
         dateDisplay = findViewById(R.id.fielddate);
         timeButton = findViewById(R.id.buttontime);
-        timeDisplay = findViewById(R.id.timedisplay);
+        timeDisplay = findViewById(R.id.displaytime);
         titleDisplay = findViewById(R.id.fieldtitle);
         descriptionDisplay = findViewById(R.id.fielddescription);
         dateDisplay = findViewById(R.id.fielddate);
@@ -114,8 +115,14 @@ public class HelpRequestForm extends AppCompatActivity implements DatePickerDial
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Run Checks as well
+                if (TextUtils.isEmpty(displayName.getText().toString().trim()) || TextUtils.isEmpty(acct.getEmail()) ||
+                        TextUtils.isEmpty(addressLocation.getText().toString()) || TextUtils.isEmpty(phoneDisplay.getText().toString()) ||
+                        TextUtils.isEmpty(titleDisplay.getText().toString()) || TextUtils.isEmpty(descriptionDisplay.getText().toString()) ||
+                        TextUtils.isEmpty(dateDisplay.getText().toString()) || TextUtils.isEmpty(timeDisplay.getText().toString())) {
+                    Toast.makeText(HelpRequestForm.this,"Required Fields Missing Data, Please Verify",Toast.LENGTH_LONG).show();
+                } else {
                 addItemToSheet();
+                }
             }
         });
         //Go to Request Help Screen
