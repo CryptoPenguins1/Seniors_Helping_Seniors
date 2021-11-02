@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -127,6 +128,7 @@ public class HelpRequestForm extends AppCompatActivity implements DatePickerDial
         });
         //Go to Request Help Screen
         ImageView requesthelp = (ImageView) findViewById(R.id.requesthelp);
+        requesthelp.setColorFilter(Color.BLUE);
         requesthelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

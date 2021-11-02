@@ -2,6 +2,7 @@ package com.example.seniorshelpingseniors;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -39,7 +40,7 @@ public class HelpNow extends AppCompatActivity implements AdapterView.OnItemClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help_now);
 
-        //Initalize ListView and start process for getting items so it loads immediately.
+        //Initialize ListView and start process for getting items so it loads immediately.
         listView = (ListView) findViewById(R.id.lv_items);
         getItems();
         listView.setOnItemClickListener(this);
@@ -53,6 +54,7 @@ public class HelpNow extends AppCompatActivity implements AdapterView.OnItemClic
         });
         //Go to Help Now Screen
         ImageView offerhelp = (ImageView) findViewById(R.id.offerhelp);
+        offerhelp.setColorFilter(Color.BLUE);
         offerhelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,6 +119,7 @@ public class HelpNow extends AppCompatActivity implements AdapterView.OnItemClic
                 String jobDescription = jo.getString("jobDescription");
                 String jobDate = jo.getString("jobDate").replace("@", "");
                 String jobTime = jo.getString("jobTime").replace("@", "");
+                String date = jo.getString("date");
 
                 HashMap<String, String> item = new HashMap<>();
                 item.put("userName", userName);
@@ -127,6 +130,8 @@ public class HelpNow extends AppCompatActivity implements AdapterView.OnItemClic
                 item.put("jobDescription", jobDescription);
                 item.put("jobDate", jobDate);
                 item.put("jobTime", jobTime);
+                item.put("date", date);
+
 
                 list.add(item);
             }
@@ -134,7 +139,7 @@ public class HelpNow extends AppCompatActivity implements AdapterView.OnItemClic
             e.printStackTrace();
         }
         adapter = new SimpleAdapter(this,list,R.layout.activity_help_now_list,
-                new String[]{"userName", "emailAddress", "userAddress", "userPhone", "jobTitle", "jobDescription", "jobDate", "jobTime"},new int[]{R.id.fieldusername,R.id.fieldemail,R.id.fielduseraddress,R.id.fielduserphone,R.id.fieldjobtitle,R.id.fieldjobdescription,R.id.fielddate,R.id.fieldjobtime});
+                new String[]{"userName", "emailAddress", "userAddress", "userPhone", "jobTitle", "jobDescription", "jobDate", "jobTime", "date"},new int[]{R.id.fieldusername,R.id.fieldemail,R.id.fielduseraddress,R.id.fielduserphone,R.id.fieldjobtitle,R.id.fieldjobdescription,R.id.fielddate,R.id.fieldjobtime});
         listView.setAdapter(adapter);
         loading.dismiss();
     }
@@ -150,6 +155,7 @@ public class HelpNow extends AppCompatActivity implements AdapterView.OnItemClic
         String jobDescription = map.get("jobDescription").toString();
         String jobDate = map.get("jobDate");
         String jobTime = map.get("jobTime");
+        String date = map.get("date");
         intent.putExtra("userName",userName);
         intent.putExtra("emailAddress",emailAddress);
         intent.putExtra("userAddress",userAddress);
@@ -158,6 +164,7 @@ public class HelpNow extends AppCompatActivity implements AdapterView.OnItemClic
         intent.putExtra("jobDescription",jobDescription);
         intent.putExtra("jobDate",jobDate);
         intent.putExtra("jobTime",jobTime);
+        intent.putExtra("date", date);
 
         startActivity(intent);
     }

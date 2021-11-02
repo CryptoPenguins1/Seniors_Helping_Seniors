@@ -6,17 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".HelpScreen">
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ListView
+        android:id="@+id/lv_items"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="215dp"
-        android:text="Request Help Screen"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="264dp" />
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="30dp" />
 
     <ImageView
         android:id="@+id/requesthelp"
@@ -126,7 +125,17 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="87dp"
         android:layout_marginLeft="87dp"
-        android:layout_marginBottom="148dp"
+        android:layout_marginBottom="119dp"
         android:text="Enter New Help Request" />
+
+    <TextView
+        android:id="@+id/currentJobText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="Your Current Open Jobs:"
+        android:textSize="16sp" />
 
 </RelativeLayout>

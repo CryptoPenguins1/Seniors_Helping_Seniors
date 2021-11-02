@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -137,6 +138,7 @@ public class ProfileScreen extends AppCompatActivity {
         });
         //Go to Profile Screen
         ImageView profile = (ImageView) findViewById(R.id.profile);
+        profile.setColorFilter(Color.BLUE);
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

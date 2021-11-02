@@ -2,6 +2,7 @@ package com.example.seniorshelpingseniors;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -28,7 +29,7 @@ public class HelpNowListDetails extends AppCompatActivity {
 
     TextView textUserName, textEmail, textUserAddress, textUserPhone, textJobTitle, textJobDescription, textJobDate, textJobTime;
     Button markAsComplete, getDirections;
-    String userName, emailAddress, userAddress, userPhone, jobTitle, jobDescription, jobDate, jobTime;
+    String userName, emailAddress, userAddress, userPhone, jobTitle, jobDescription, jobDate, jobTime, date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class HelpNowListDetails extends AppCompatActivity {
         jobDescription = intent.getStringExtra("jobDescription");
         jobDate = intent.getStringExtra("jobDate").replace("@", "");
         jobTime = intent.getStringExtra("jobTime").replace("@", "");
+        date = intent.getStringExtra("date");
 
         textUserName = (TextView) findViewById(R.id.fieldusername);
         textEmail = (TextView) findViewById(R.id.fieldemail);
@@ -89,6 +91,7 @@ public class HelpNowListDetails extends AppCompatActivity {
         });
         //Go to Help Now Screen
         ImageView offerhelp = (ImageView) findViewById(R.id.offerhelp);
+        offerhelp.setColorFilter(Color.BLUE);
         offerhelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,7 +121,7 @@ public class HelpNowListDetails extends AppCompatActivity {
 
         Intent intent = getIntent();
         final ProgressDialog loading = ProgressDialog.show(this,"Marking Job As Complete","Please wait");
-        userName = intent.getStringExtra("userName");
+        //userName = intent.getStringExtra("userName");
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://script.google.com/macros/s/AKfycbwJZqqvpdFKoEKQXGeKgz2oSWfyWnsI17y7A4D3W55aS_MedtjS/exec",
                 new Response.Listener<String>() {
@@ -140,13 +143,13 @@ public class HelpNowListDetails extends AppCompatActivity {
         ) {
             @Override
             protected Map<String, String> getParams() {
-                Map<String, String> parmas = new HashMap<>();
+                Map<String, String> params = new HashMap<>();
 
                 //here we pass params
-                parmas.put("action","deleteItems");
-                parmas.put("jobDescription",jobDescription);
+                params.put("action","deleteItems");
+                params.put("date",date);
 
-                return parmas;
+                return params;
             }
         };
         int socketTimeOut = 5000;
@@ -183,6 +186,4 @@ public class HelpNowListDetails extends AppCompatActivity {
         Intent intent = new Intent(this, SettingsScreen.class);
         startActivity(intent);
     }
-
-
 }
