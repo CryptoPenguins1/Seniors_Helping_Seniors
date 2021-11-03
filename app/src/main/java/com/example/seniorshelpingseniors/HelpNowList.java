@@ -12,6 +12,4 @@ public class HelpNowList extends AppCompatActivity {
         setContentView(R.layout.activity_help_now_list);
 
     }
-
-
 }

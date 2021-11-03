@@ -44,11 +44,8 @@ public class MainActivity extends AppCompatActivity{
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-
         binding.signInButton.setSize(SignInButton.SIZE_WIDE);
-
         binding.signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,7 +76,6 @@ public class MainActivity extends AppCompatActivity{
                     }
                 });
     }
-
     //Google Handle Sign In
     ActivityResultLauncher<Intent> startActivityForResult = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -114,11 +110,7 @@ public class MainActivity extends AppCompatActivity{
                     }
                 }, 500);
             }
-
-            // Signed in successfully, show authenticated UI.
         } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.d("Google Error", e.getMessage());
         }
     }

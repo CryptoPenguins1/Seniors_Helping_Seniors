@@ -160,7 +160,6 @@ public class HelpRequestForm extends AppCompatActivity implements DatePickerDial
             }
         });
     }
-
     //Show calendar
     private void showDatePickerDialog() {
         DatePickerDialog datePickerDialog = new DatePickerDialog(
@@ -172,7 +171,6 @@ public class HelpRequestForm extends AppCompatActivity implements DatePickerDial
         );
         datePickerDialog.show();
     }
-
     //Request Help Screen Function
     public void openRequestHelp() {
         Intent intent = new Intent(this, HelpScreen.class);
@@ -193,7 +191,6 @@ public class HelpRequestForm extends AppCompatActivity implements DatePickerDial
         Intent intent = new Intent(this, SettingsScreen.class);
         startActivity(intent);
     }
-
     //Set Date Function
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -201,7 +198,6 @@ public class HelpRequestForm extends AppCompatActivity implements DatePickerDial
         String date = month + "/" + dayOfMonth + "/" + year;
         dateDisplay.setText(date);
     }
-
     //Set Time Function
     public void selectTime(View view) {
         TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
@@ -260,10 +256,7 @@ public class HelpRequestForm extends AppCompatActivity implements DatePickerDial
             }
         });
     }
-
-
     private void addItemToSheet() {
-
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
             String personName = acct.getDisplayName();

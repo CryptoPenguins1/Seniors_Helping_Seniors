@@ -223,22 +223,11 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="239dp"
-        android:layout_marginRight="239dp"
-        android:layout_marginBottom="191dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="138dp"
+        android:layout_marginRight="138dp"
+        android:layout_marginBottom="193dp"
         android:text="Get Address" />
-
-    <Button
-        android:id="@+id/changeaddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="39dp"
-        android:layout_marginRight="39dp"
-        android:layout_marginBottom="190dp"
-        android:text="Change Address" />
 
     <Button
         android:id="@+id/signout"
@@ -248,21 +237,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="125dp"
         android:text="Sign Out" />
-
-    <EditText
-        android:id="@+id/editAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="31dp"
-        android:layout_marginLeft="31dp"
-        android:layout_marginBottom="245dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Enter your Address"
-        android:visibility="invisible" />
 
 
 </RelativeLayout>

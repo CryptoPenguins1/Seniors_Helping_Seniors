@@ -5,6 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/currentJobText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="All Open Jobs:"
+        android:textSize="16sp" />
+
     <ImageView
         android:id="@+id/requesthelp"
         android:layout_width="66dp"
@@ -106,12 +116,12 @@
     <ListView
         android:id="@+id/lv_items"
         android:layout_width="match_parent"
-        android:layout_height="490dp"
+        android:layout_height="458dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
         android:layout_marginLeft="0dp"
-        android:layout_marginTop="0dp" />
+        android:layout_marginTop="30dp" />
 
 </RelativeLayout>

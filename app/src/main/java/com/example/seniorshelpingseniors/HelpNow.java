@@ -78,7 +78,6 @@ public class HelpNow extends AppCompatActivity implements AdapterView.OnItemClic
             }
         });
     }
-
     private void getItems() {
         loading =  ProgressDialog.show(this,"Loading","Please Wait, Fetching all Open Jobs",false,true);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://script.google.com/macros/s/AKfycbwJZqqvpdFKoEKQXGeKgz2oSWfyWnsI17y7A4D3W55aS_MedtjS/exec?action=getItems",
@@ -132,7 +131,6 @@ public class HelpNow extends AppCompatActivity implements AdapterView.OnItemClic
                 item.put("jobTime", jobTime);
                 item.put("date", date);
 
-
                 list.add(item);
             }
         } catch (JSONException e) {
@@ -168,7 +166,6 @@ public class HelpNow extends AppCompatActivity implements AdapterView.OnItemClic
 
         startActivity(intent);
     }
-
     //Request Help Screen Function
     public void openRequestHelp() {
         Intent intent = new Intent(this, HelpScreen.class);

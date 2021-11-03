@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,12 +39,9 @@ public class ProfileScreen extends AppCompatActivity {
 
     //Initialize Address Variables
     Button getAddress;
-    Button changeAddress;
     TextView addressLocation;
-    EditText editAddressLocation;
     FusedLocationProviderClient fusedLocationProviderClient;
     GoogleSignInClient mGoogleSignInClient;
-
     //End Address Initialize
 
     @Override
@@ -55,9 +51,7 @@ public class ProfileScreen extends AppCompatActivity {
 
         //Get Address info
         getAddress = findViewById(R.id.getaddress);
-        changeAddress = findViewById(R.id.changeaddress);
         addressLocation = findViewById(R.id.useraddress);
-        editAddressLocation = findViewById(R.id.editAddress);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         if (ActivityCompat.checkSelfPermission(ProfileScreen.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             getLocation();
@@ -68,7 +62,6 @@ public class ProfileScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 addressLocation.setVisibility(View.VISIBLE);
-                editAddressLocation.setVisibility(View.INVISIBLE);
 
                 if (ActivityCompat.checkSelfPermission(ProfileScreen.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     getLocation();
@@ -78,15 +71,6 @@ public class ProfileScreen extends AppCompatActivity {
             }
         });
         //End Address Function
-        //Change Address
-        changeAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addressLocation.setVisibility(View.INVISIBLE);
-                editAddressLocation.setVisibility(View.VISIBLE);
-            }
-        });
-
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
@@ -155,7 +139,6 @@ public class ProfileScreen extends AppCompatActivity {
         });
 
     }
-
     //Google Sign Out Function
     private void signOut() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -170,7 +153,6 @@ public class ProfileScreen extends AppCompatActivity {
                     }
                 });
     }
-
     //Address Private Function
     @SuppressLint("MissingPermission")
     private void getLocation() {
@@ -190,7 +172,6 @@ public class ProfileScreen extends AppCompatActivity {
             }
         });
     }
-
     //Request Help Screen Function
     public void openRequestHelp() {
         Intent intent = new Intent(this, HelpScreen.class);

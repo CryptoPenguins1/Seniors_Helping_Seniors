@@ -46,8 +46,6 @@ public class HelpScreen extends AppCompatActivity implements AdapterView.OnItemC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help_screen);
 
-
-
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
             String personName = acct.getDisplayName();
@@ -59,7 +57,6 @@ public class HelpScreen extends AppCompatActivity implements AdapterView.OnItemC
         }
 
         emailAddressFilter = acct.getEmail();
-
         //Initialize ListView and start process for getting items so it loads immediately.
         listView = (ListView) findViewById(R.id.lv_items);
         getItems();
@@ -111,7 +108,6 @@ public class HelpScreen extends AppCompatActivity implements AdapterView.OnItemC
 
 
     }
-
     private void getItems() {
         loading =  ProgressDialog.show(this,"Loading","Please Wait, Fetching all Open Jobs",false,true);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://script.google.com/macros/s/AKfycbwJZqqvpdFKoEKQXGeKgz2oSWfyWnsI17y7A4D3W55aS_MedtjS/exec?action=getItems",
@@ -134,7 +130,6 @@ public class HelpScreen extends AppCompatActivity implements AdapterView.OnItemC
         queue.add(stringRequest);
     }
     private void parseItems(String jsonResponse) {
-
         ArrayList<HashMap<String, String>> list = new ArrayList<>();
 
         try {
@@ -164,7 +159,6 @@ public class HelpScreen extends AppCompatActivity implements AdapterView.OnItemC
                 item.put("jobDate", jobDate);
                 item.put("jobTime", jobTime);
                 item.put("date", date);
-
 
                 list.add(item);
             }
