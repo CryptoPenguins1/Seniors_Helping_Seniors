@@ -86,6 +86,7 @@ public class HelpRequestForm extends AppCompatActivity implements DatePickerDial
             ActivityCompat.requestPermissions(HelpRequestForm.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
         }
 
+
         //Google Information
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {

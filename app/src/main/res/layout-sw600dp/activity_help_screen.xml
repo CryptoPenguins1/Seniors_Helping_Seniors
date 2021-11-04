@@ -4,7 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingsScreen">
+    tools:context=".HelpScreen">
+
+    <ListView
+        android:id="@+id/lv_items"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:scrollbarFadeDuration="0"
+        app:layout_constraintBottom_toTopOf="@+id/helpRequestButton"
+        app:layout_constraintDimensionRatio="1:.9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currentJobText" />
 
     <ImageView
         android:id="@+id/requesthelp"
@@ -71,6 +85,7 @@
         android:layout_alignParentBottom="true"
         android:gravity="center"
         android:text="Request Help"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1.5:1"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
@@ -87,6 +102,7 @@
         android:layout_alignParentBottom="true"
         android:gravity="center"
         android:text="Offer Help"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1.5:1"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
@@ -103,6 +119,7 @@
         android:layout_alignParentBottom="true"
         android:gravity="center"
         android:text="Profile"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1.5:1"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
@@ -119,6 +136,7 @@
         android:layout_alignParentBottom="true"
         android:gravity="center"
         android:text="Settings"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1.5:1"
         app:layout_constraintEnd_toStartOf="@+id/guideline12"
@@ -197,158 +215,29 @@
         app:layout_constraintGuide_percent=".93" />
 
     <Button
-        android:id="@+id/enable_tots_button"
+        android:id="@+id/helpRequestButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:onClick="onClickNotifications"
-        android:text="Enable"
-        app:layout_constraintBottom_toTopOf="@+id/help_and_support_title"
-        app:layout_constraintDimensionRatio="3:1"
-        app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toBottomOf="@+id/notifications_title" />
-
-    <TextView
-        android:id="@+id/notifications_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="Notifications: "
-        android:textColor="#000000"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/enable_tots_button"
-        app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toBottomOf="@+id/settingsheader" />
-
-    <TextView
-        android:id="@+id/logout_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logout:"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/logout_button"
-        app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toBottomOf="@+id/reset_button" />
-
-    <Button
-        android:id="@+id/logout_button"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:onClick="onClickLogout"
-        android:text="Logout"
-        app:layout_constraintBottom_toTopOf="@+id/guideline25"
-        app:layout_constraintDimensionRatio="3:1"
-        app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toBottomOf="@+id/logout_title" />
-
-    <TextView
-        android:id="@+id/help_and_support_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:text="Help and Support: "
-        android:textColor="#000000"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/support_button"
-        app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toBottomOf="@+id/enable_tots_button" />
-
-    <Button
-        android:id="@+id/support_button"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:onClick="onClickSupport"
-        android:text="Support"
-        app:layout_constraintBottom_toTopOf="@+id/reset_app_title"
-        app:layout_constraintDimensionRatio="3:1"
-        app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toBottomOf="@+id/help_and_support_title" />
-
-    <TextView
-        android:id="@+id/reset_app_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="Reset App: "
-        android:textColor="#000000"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/reset_button"
-        app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toBottomOf="@+id/support_button" />
-
-    <Button
-        android:id="@+id/reset_button"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerVertical="true"
-        android:text="Reset"
-        app:layout_constraintBottom_toTopOf="@+id/logout_title"
-        app:layout_constraintDimensionRatio="3:1"
-        app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toBottomOf="@+id/reset_app_title" />
-
-    <Button
-        android:id="@+id/disable_tots_button2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:onClick="onClickDisableNotifications"
-        android:text="Disable"
-        app:layout_constraintDimensionRatio="3:1"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Enter New Help Request"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintDimensionRatio="7:1"
         app:layout_constraintEnd_toStartOf="@+id/guideline12"
-        app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toTopOf="@+id/enable_tots_button" />
+        app:layout_constraintStart_toStartOf="@+id/guideline5" />
 
     <TextView
-        android:id="@+id/settingsheader"
+        android:id="@+id/currentJobText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:text="Settings"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="Your Current Open Jobs:"
+        android:textSize="24sp"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline25"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.7296849" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

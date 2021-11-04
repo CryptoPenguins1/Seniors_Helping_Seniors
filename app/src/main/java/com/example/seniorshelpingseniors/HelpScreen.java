@@ -104,12 +104,9 @@ public class HelpScreen extends AppCompatActivity implements AdapterView.OnItemC
             }
         });
 
-
-
-
     }
     private void getItems() {
-        loading =  ProgressDialog.show(this,"Loading","Please Wait, Fetching all Open Jobs",false,true);
+        loading =  ProgressDialog.show(this,"Loading","Please Wait, Fetching Your Current Open Jobs",false,true);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://script.google.com/macros/s/AKfycbwJZqqvpdFKoEKQXGeKgz2oSWfyWnsI17y7A4D3W55aS_MedtjS/exec?action=getItems",
                 new Response.Listener<String>() {
                     @Override
